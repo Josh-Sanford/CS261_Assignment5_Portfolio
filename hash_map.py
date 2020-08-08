@@ -72,8 +72,8 @@ class HashMap:
         """
         TODO: Write this implementation
         """
-        # make contains_key method first
-        # for i in range(self.size):
+        if self.contains_key(key)
+        sll = self.hash_function(key)
 
         pass
 
@@ -87,18 +87,21 @@ class HashMap:
         """
         TODO: Write this implementation
         """
-        for i in range(self.capacity):
-            sll = self.buckets.get_at_index(i)
-            for node in sll:
-                if node.key == key:
-                    return True
+        sll = self.hash_function(key)
+        for node in sll:
+            if node.key == key:
+                return True
         return False
 
     def empty_buckets(self) -> int:
         """
         TODO: Write this implementation
         """
-        return 0
+        empty_buckets = 0
+        for i in range(self.capacity):
+            if self.buckets.get_at_index(i) is None:
+                empty_buckets += 1
+        return empty_buckets
 
     def table_load(self) -> float:
         """
