@@ -72,6 +72,9 @@ class HashMap:
         """
         TODO: Write this implementation
         """
+        # make contains_key method first
+        # for i in range(self.size):
+
         pass
 
     def remove(self, key: str) -> None:
@@ -84,6 +87,11 @@ class HashMap:
         """
         TODO: Write this implementation
         """
+        for i in range(self.capacity):
+            sll = self.buckets.get_at_index(i)
+            for node in sll:
+                if node.key == key:
+                    return True
         return False
 
     def empty_buckets(self) -> int:
@@ -106,13 +114,16 @@ class HashMap:
 
     def get_keys(self) -> DynamicArray:
         """
-        TODO: Write this implementation
+        Returns a dynamic array containing all the keys in the hash map.
         """
+        keys = DynamicArray()
+        for i in range(self.size):
+            keys.append(self.buckets[i])
         return DynamicArray()
 
 
 # BASIC TESTING
-if __name__ == "__main__":
+"""if __name__ == "__main__":
 
     print("\nPDF - empty_buckets example 1")
     print("-----------------------------")
@@ -305,4 +316,4 @@ if __name__ == "__main__":
     m.put('200', '2000')
     m.remove('100')
     m.resize_table(2)
-    print(m.get_keys())
+    print(m.get_keys())"""
