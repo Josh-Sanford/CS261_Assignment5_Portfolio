@@ -1,6 +1,6 @@
 # Course: CS261 - Data Structures
 # Assignment: 5
-# Student:
+# Student: Josh Sanford
 # Description:
 
 
@@ -127,8 +127,12 @@ class HashMap:
         Returns a dynamic array containing all the keys in the hash map.
         """
         keys = DynamicArray()
-        
-        return DynamicArray()
+        for i in range(self.buckets.length()):
+            sll = self.buckets.get_at_index(i)
+            for node in sll:
+                print("node.key:", node.key)
+                keys.append(node.key)
+        return keys
 
 
 # BASIC TESTING
