@@ -72,10 +72,16 @@ class HashMap:
         """
         TODO: Write this implementation
         """
-        if self.contains_key(key)
-        sll = self.hash_function(key)
-
-        pass
+        # hash = hash_function(key)
+        # index = hash % array_size
+        hash = self.hash_function(key)
+        index = hash % self.buckets.length()
+        sll = self.buckets.get_at_index(index)
+        if sll.contains(key):
+            node = sll.contains(key)
+            node.value = value
+        else:
+            sll.insert(key, value)
 
     def remove(self, key: str) -> None:
         """
@@ -85,17 +91,18 @@ class HashMap:
 
     def contains_key(self, key: str) -> bool:
         """
-        TODO: Write this implementation
+        Returns true if the key is in the hash_map, false otherwise.
         """
-        sll = self.hash_function(key)
-        for node in sll:
-            if node.key == key:
-                return True
+        hash = self.hash_function(key)
+        index = hash % self.buckets.length()
+        sll = self.buckets.get_at_index(index)
+        if sll.contains(key):
+            return True
         return False
 
     def empty_buckets(self) -> int:
         """
-        TODO: Write this implementation
+        Returns the number of empty buckets in the hash table.
         """
         empty_buckets = 0
         for i in range(self.capacity):
@@ -120,8 +127,7 @@ class HashMap:
         Returns a dynamic array containing all the keys in the hash map.
         """
         keys = DynamicArray()
-        for i in range(self.size):
-            keys.append(self.buckets[i])
+        
         return DynamicArray()
 
 
