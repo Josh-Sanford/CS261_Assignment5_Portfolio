@@ -80,7 +80,7 @@ class HashMap:
 
     def put(self, key: str, value: object) -> None:
         """
-        TODO: Write this implementation
+        Hashes and places a new key/value pair into the hash map.
         """
         # hash = hash_function(key)
         # index = hash % array_size
@@ -124,7 +124,8 @@ class HashMap:
         """
         empty_buckets = 0
         for i in range(self.capacity):
-            if self.buckets.get_at_index(i) is None:
+            sll = self.buckets.get_at_index(i)
+            if sll.length() == 0:
                 empty_buckets += 1
         return empty_buckets
 
@@ -144,7 +145,15 @@ class HashMap:
         """
         Resize the hash map to the given new capacity.
         """
-        if new_capacity >= 1:
+        new_hash = HashMap(new_capacity, self.hash_function)
+        keys = self.get_keys()
+        for i in range(keys.length()):
+            key = keys.pop()
+            value = self.get(key)
+            new_hash.put(key, value)
+        self.buckets = new_hash.buckets
+        self.capacity = new_capacity
+        """if new_capacity >= 1:
             for i in range(new_capacity - self.capacity):
                 self.buckets.append(LinkedList())
             self.capacity = new_capacity
@@ -154,6 +163,10 @@ class HashMap:
                 value = self.get(key)
                 self.remove(key)
                 self.put(key, value)
+
+                # if new capacity is less than current capacity:
+                #   for current capacity - new capacity:
+                #       delete empty buckets encountered"""
 
     def get_keys(self) -> DynamicArray:
         """
