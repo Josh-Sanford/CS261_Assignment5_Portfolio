@@ -58,14 +58,24 @@ class HashMap:
 
     def clear(self) -> None:
         """
-        TODO: Write this implementation
+        Clears the contents of the hash map.
         """
-        pass
+        keys = DynamicArray()
+        for i in range(self.size):
+            self.buckets.set_at_index(i, LinkedList())
+            self.size -= 1
 
     def get(self, key: str) -> object:
         """
-        TODO: Write this implementation
+        Returns the value of the given key, or None if that key is not in the hash map.
         """
+        if self.contains_key(key):
+            # iterate each linked list, check for key in that list and return value if found
+            for i in range(self.buckets.length()):
+                sll = self.buckets.get_at_index(i)
+                if sll.contains(key):
+                    node = sll.contains(key)
+                    return node.value
         return None
 
     def put(self, key: str, value: object) -> None:
@@ -82,12 +92,20 @@ class HashMap:
             node.value = value
         else:
             sll.insert(key, value)
+            self.size += 1
 
     def remove(self, key: str) -> None:
         """
-        TODO: Write this implementation
+        Removes the given key and its value from the hash map.
         """
-        pass
+        if self.contains_key(key):
+            # find the key
+            for i in range(self.buckets.length()):
+                sll = self.buckets.get_at_index(i)
+                if sll.contains(key):
+                    sll.remove(key)
+                    self.size -= 1
+                    return
 
     def contains_key(self, key: str) -> bool:
         """
@@ -112,15 +130,30 @@ class HashMap:
 
     def table_load(self) -> float:
         """
-        TODO: Write this implementation
+        Returns the current load factor of the hash map.
         """
-        return 0.0
+        n = 0  # total number of elements in the hash map
+        for i in range(self.buckets.length()):
+            sll = self.buckets.get_at_index(i)
+            n += sll.length()
+        m = self.capacity    # number of buckets
+        load_factor = n / m  # average number of elements in each bucket
+        return load_factor
 
     def resize_table(self, new_capacity: int) -> None:
         """
-        TODO: Write this implementation
+        Resize the hash map to the given new capacity.
         """
-        pass
+        if new_capacity >= 1:
+            for i in range(new_capacity - self.capacity):
+                self.buckets.append(LinkedList())
+            self.capacity = new_capacity
+            keys = self.get_keys()
+            for i in range(keys.length()):
+                key = keys.pop()
+                value = self.get(key)
+                self.remove(key)
+                self.put(key, value)
 
     def get_keys(self) -> DynamicArray:
         """
@@ -130,7 +163,6 @@ class HashMap:
         for i in range(self.buckets.length()):
             sll = self.buckets.get_at_index(i)
             for node in sll:
-                print("node.key:", node.key)
                 keys.append(node.key)
         return keys
 

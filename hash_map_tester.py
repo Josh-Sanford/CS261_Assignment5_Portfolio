@@ -3,6 +3,50 @@ from hash_map import HashMap, hash_function_1, hash_function_2
 
 
 class MyTestCase(unittest.TestCase):
+    def test_clear(self):
+        hash_map = HashMap(5, hash_function_1)
+        hash_map.put("key 1", "1")
+        hash_map.put("key 2", "2")
+        hash_map.put("key 3", "3")
+        print("size:", hash_map.size, "capacity:", hash_map.capacity)
+        print(hash_map)
+        hash_map.clear()
+        print("size:", hash_map.size, "capacity:", hash_map.capacity)
+        print(hash_map)
+
+    def test_get(self):
+        hash_map = HashMap(10, hash_function_2)
+        for i in range(1, 31):
+            hash_map.put('key' + str(i), i)
+        print(hash_map)
+        value = hash_map.get("key25")
+        print("value =", value)
+        self.assertEqual(value, 25)
+        value = hash_map.get("key18")
+        print("value =", value)
+        self.assertEqual(value, 18)
+        value = hash_map.get("key2")
+        print("value =", value)
+        self.assertEqual(value, 2)
+        value = hash_map.get("key9")
+        print("value =", value)
+        self.assertEqual(value, 9)
+        value = hash_map.get("key50")
+        print("value =", value)
+        self.assertEqual(value, None)
+
+    def test_remove(self):
+        hash_map = HashMap(10, hash_function_2)
+        for i in range(1, 31):
+            hash_map.put('key' + str(i), i)
+        print("size:", hash_map.size, "capacity:", hash_map.capacity)
+        print(hash_map)
+        self.assertTrue(hash_map.contains_key('key4'))
+        hash_map.remove('key4')
+        print("size:", hash_map.size, "capacity:", hash_map.capacity)
+        print(hash_map)
+        self.assertFalse(hash_map.contains_key('key4'))
+
     def test_put_and_contains_key(self):
         hash_map = HashMap(100, hash_function_1)
         hash_map.put("a", 1)
@@ -16,6 +60,68 @@ class MyTestCase(unittest.TestCase):
             m.put('str' + str(i), i * 100)
             if i % 25 == 24:
                 print(m.empty_buckets(), m.table_load(), m.size, m.capacity)
+
+    def test_table_load(self):
+        hash_map = HashMap(10, hash_function_2)
+        for i in range(1, 31):
+            hash_map.put('key' + str(i), i)
+        print(hash_map)
+        print(hash_map.table_load())
+        self.assertTrue(3.0, hash_map.table_load())
+
+    def test_table_load_ex1(self):
+        m = HashMap(100, hash_function_1)
+        self.assertEqual(m.table_load(), 0.0)
+        m.put('key1', 10)
+        self.assertEqual(m.table_load(), 0.01)
+        m.put('key2', 20)
+        self.assertEqual(m.table_load(), 0.02)
+        m.put('key1', 30)
+        self.assertEqual(m.table_load(), 0.02)
+
+    def test_table_load_ex2(self):
+        m = HashMap(50, hash_function_1)
+        for i in range(50):
+            m.put('key' + str(i), i * 100)
+            if i % 10 == 0:
+                print(m.table_load(), m.size, m.capacity)
+
+    def test_resize_table(self):
+        hash_map = HashMap(10, hash_function_2)
+        for i in range(1, 31):
+            hash_map.put('key' + str(i), i)
+        print("size:", hash_map.size, "capacity:", hash_map.capacity)
+        print(hash_map)
+        hash_map.resize_table(20)
+        print("size:", hash_map.size, "capacity:", hash_map.capacity)
+        print(hash_map)
+        hash_map.resize_table(5)
+        print("size:", hash_map.size, "capacity:", hash_map.capacity)
+        print(hash_map)
+
+    def test_resize_table_ex1(self):
+        m = HashMap(20, hash_function_1)
+        m.put('key1', 10)
+        print(m.size, m.capacity, m.get('key1'), m.contains_key('key1'))
+        m.resize_table(30)
+        print(m.size, m.capacity, m.get('key1'), m.contains_key('key1'))
+
+    def test_resize_table_ex2(self):
+        m = HashMap(75, hash_function_2)
+        keys = [i for i in range(1, 1000, 13)]
+        for key in keys:
+            m.put(str(key), key * 42)
+        print(m.size, m.capacity)
+
+        for capacity in range(111, 1000, 117):
+            m.resize_table(capacity)
+            m.put('some key', 'some value')
+            result = m.contains_key('some key')
+            m.remove('some key')
+            for key in keys:
+                result &= m.contains_key(str(key))
+                result &= not m.contains_key(str(key + 1))
+            print(capacity, result, m.size, m.capacity, round(m.table_load(), 2))
 
     def test_get_keys(self):
         hash_map = HashMap(3, hash_function_1)
