@@ -1,7 +1,7 @@
 # Course: CS261 - Data Structures
-# Assignment: 5
+# Assignment: 5 Part 1
 # Student: Josh Sanford
-# Description:
+# Description: This file implements a hash map data structure that uses buckets and linked lists to handle collisions.
 
 
 # Import pre-written DynamicArray and LinkedList classes
@@ -153,20 +153,6 @@ class HashMap:
             new_hash.put(key, value)
         self.buckets = new_hash.buckets
         self.capacity = new_capacity
-        """if new_capacity >= 1:
-            for i in range(new_capacity - self.capacity):
-                self.buckets.append(LinkedList())
-            self.capacity = new_capacity
-            keys = self.get_keys()
-            for i in range(keys.length()):
-                key = keys.pop()
-                value = self.get(key)
-                self.remove(key)
-                self.put(key, value)
-
-                # if new capacity is less than current capacity:
-                #   for current capacity - new capacity:
-                #       delete empty buckets encountered"""
 
     def get_keys(self) -> DynamicArray:
         """

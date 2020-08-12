@@ -243,6 +243,26 @@ class MyTestCase(unittest.TestCase):
         m.resize_table(2)
         print(m.get_keys())
 
+    def test_hash_functions(self):
+        hash_1 = HashMap(10, hash_function_1)
+        hash_2 = HashMap(10, hash_function_2)
+        hash_1.put("stanley", 1)
+        hash_1.put("yelnats", 2)
+        hash_1.put("abc", 3)
+        hash_1.put("bac", 4)
+        hash_1.put("cab", 5)
+        hash_2.put("stanley", 1)
+        hash_2.put("yelnats", 2)
+        hash_2.put("abc", 3)
+        hash_2.put("bac", 4)
+        hash_2.put("cab", 5)
+        print(hash_1)
+        print(hash_2)
+        print("empty_buckets hash_1:", hash_1.empty_buckets())
+        print("empty_buckets hash_2:", hash_2.empty_buckets())
+        print("table_load hash_1:", hash_1.table_load())
+        print("table_load hash_2:", hash_2.table_load())
+
 
 if __name__ == '__main__':
     unittest.main()
