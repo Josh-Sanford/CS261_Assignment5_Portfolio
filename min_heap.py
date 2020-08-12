@@ -64,7 +64,7 @@ class MinHeap:
             raise MinHeapException
         return self.heap.get_at_index(0)
 
-    """def remove_min(self) -> object:
+    def remove_min(self) -> object:
         """
         Returns the minimum node and removes it from the heap.
         """
@@ -109,7 +109,7 @@ class MinHeap:
                     replacement_index = right_child_index
                     left_child_index = (2 * replacement_index) + 1
                     right_child_index = (2 * replacement_index) + 2
-        return min_key"""
+        return min_key
 
     def build_heap(self, da: DynamicArray) -> None:
         """
