@@ -263,6 +263,19 @@ class MyTestCase(unittest.TestCase):
         print("table_load hash_1:", hash_1.table_load())
         print("table_load hash_2:", hash_2.table_load())
 
+    def test_get_keys_grade_scope(self):
+        """Checks that the hash_table method returns a DynamicArray that contains all keys stored in your hash map"""
+        m = HashMap(10, hash_function_2)
+        for i in range(100, 200, 10):
+            m.put(str(i), str(i * 10))
+        self.assertEqual(str(m.get_keys()), "['160', '110', '170', '120', '180', '130', '190', '140', '150', '100']")
+        m.resize_table(1)
+        self.assertEqual(str(m.get_keys()), "['100', '150', '140', '190', '130', '180', '120', '170', '110', '160']")
+        m.put('200', '2000')
+        m.remove('100')
+        m.resize_table(2)
+        self.assertEqual(str(m.get_keys()), "['200', '160', '110', '170', '120', '180', '130', '190', '140', '150']")
+
 
 if __name__ == '__main__':
     unittest.main()

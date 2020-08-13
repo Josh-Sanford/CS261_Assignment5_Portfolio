@@ -115,6 +115,9 @@ class MinHeap:
         """
         Builds a heap from the given DynamicArray object, replacing the current heap.
         """
+        # clear the contents of the current heap
+        for i in range(self.heap.length()):
+            self.heap.pop()
         # copy the contents of the new array to the heap's array
         for i in range(da.length()):
             if i >= self.heap.length():
