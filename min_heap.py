@@ -78,7 +78,7 @@ class MinHeap:
         left_child_index = (2 * 0) + 1
         right_child_index = (2 * 0) + 2
         replacement_index = 0
-        while not self.is_empty():
+        while replacement_index < self.heap.length():
             replacement = self.heap.get_at_index(replacement_index)
             if left_child_index < self.heap.length():
                 left_child = self.heap.get_at_index(left_child_index)
