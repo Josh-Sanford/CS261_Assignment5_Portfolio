@@ -30,6 +30,14 @@ class MyTestCase(unittest.TestCase):
             print(h, end=' ')
             print(h.remove_min())
 
+    def test_remove_min(self):
+        h = MinHeap()
+        for i in range(100):
+            h.add(i)
+        while not h.is_empty():
+            print(h, end=' ')
+            print(h.remove_min())
+
     def test_build_heap_ex1(self):
         da = DynamicArray([100, 20, 6, 200, 90, 150, 300, 30, 50, 500, 75, 45, 80, 1])
         h = MinHeap(['zebra', 'apple'])
