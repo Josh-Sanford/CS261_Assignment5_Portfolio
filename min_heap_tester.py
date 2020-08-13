@@ -31,12 +31,22 @@ class MyTestCase(unittest.TestCase):
             print(h.remove_min())
 
     def test_build_heap_ex1(self):
-        da = DynamicArray([100, 20, 6, 200, 90, 150, 300])
+        da = DynamicArray([100, 20, 6, 200, 90, 150, 300, 30, 50, 500, 75, 45, 80, 1])
         h = MinHeap(['zebra', 'apple'])
         print(h)
         h.build_heap(da)
         print(h)
         da.set_at_index(0, 500)
+        print(da)
+        print(h)
+
+    def test_build_heap(self):
+        da = DynamicArray([32, 12, 2, 8, 16, 20, 24, 40, 4])
+        h = MinHeap(['Mr.', 'Poopy', 'Butthole'])
+        print(h)
+        h.build_heap(da)
+        print(h)
+        da.set_at_index(0, 400)
         print(da)
         print(h)
 

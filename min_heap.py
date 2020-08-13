@@ -128,9 +128,9 @@ class MinHeap:
         n = self.heap.length()  # total number of nodes
         index = (n // 2) - 1    # first non-leaf element
         while index >= 0:
+            cur = self.heap.get_at_index(index)
             left_child_index = (2 * index) + 1
             right_child_index = (2 * index) + 2
-            cur = self.heap.get_at_index(index)
             if left_child_index < self.heap.length():
                 left_child = self.heap.get_at_index(left_child_index)
             else:
@@ -140,13 +140,24 @@ class MinHeap:
             else:
                 right_child = None
             # percolate non-leaf element down its subtree
-            if left_child < right_child:  # if left child is minimum child
+            # if leaf node, reset to first non-leaf node
+            if left_child is None and right_child is None:
+                index = (n // 2) - 1
+            # if left child but no right child
+            elif left_child is not None and right_child is None:
                 if cur > left_child:
                     self.heap.swap(index, left_child_index)
+                    index = left_child_index + 1
+                index -= 1
+            elif left_child < right_child:  # if left child is minimum child
+                if cur > left_child:
+                    self.heap.swap(index, left_child_index)
+                    index = left_child_index + 1
                 index -= 1
             elif right_child < left_child:  # if right child is minimum child
                 if cur > right_child:
                     self.heap.swap(index, right_child_index)
+                    index = right_child_index + 1
                 index -= 1
 
 
