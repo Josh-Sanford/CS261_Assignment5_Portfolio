@@ -65,9 +65,9 @@ class MinHeap:
         return self.heap.get_at_index(0)
 
     """def remove_min(self) -> object:
-        """
+        
         Returns the minimum node and removes it from the heap.
-        """
+        
         if self.is_empty():
             raise MinHeapException
         if self.heap.length() == 1:
