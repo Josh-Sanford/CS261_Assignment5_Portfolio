@@ -106,7 +106,7 @@ class MinHeap:
                 else:
                     break
             # if right child is minimum child
-            elif left_child > right_child:
+            elif left_child >= right_child:
                 if replacement > right_child:
                     self.heap.swap(replacement_index, right_child_index)
                     replacement_index = right_child_index
